@@ -71,7 +71,7 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
               <div className="flex items-center gap-4 text-white/80 font-label-sm uppercase tracking-widest">
                 <span>{post.date}</span>
                 <span className="w-12 h-[1px] bg-white/30"></span>
-                <span>By Busan Water</span>
+                <span>작성자: 부산생수</span>
               </div>
             </div>
           </div>

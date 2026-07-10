@@ -8,16 +8,16 @@ export default function Home() {
       {/* 1. Massive Asymmetric Hero Section */}
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-[150px] pb-section-gap flex flex-col md:flex-row items-end gap-12">
         <div className="w-full md:w-5/12 flex flex-col justify-end">
-          <span className="font-label-sm uppercase tracking-widest text-primary mb-6">The Purity Project</span>
-          <h1 className="font-display-lg text-[4rem] md:text-[5.5rem] leading-[0.95] tracking-tighter text-on-background uppercase mb-8">
-            Water, <br />
-            Redefined.
+          <span className="font-label-sm tracking-widest text-primary mb-6">청정 프로젝트</span>
+          <h1 className="font-display-lg text-[4rem] md:text-[5.5rem] leading-[1.1] tracking-tighter text-on-background mb-8 break-keep">
+            물의 기준을 <br />
+            다시 쓰다.
           </h1>
-          <p className="font-body-md text-on-surface-variant max-w-sm leading-relaxed mb-10">
-            The BUSAN WATER project aims to improve the daily hydration routines of modern professionals, delivering crisp, pure water straight to your desk.
+          <p className="font-body-md text-on-surface-variant max-w-sm leading-relaxed mb-10 break-keep">
+            부산생수는 바쁜 현대인들의 매일 마시는 물 습관을 개선하기 위해, 가장 맑고 깨끗한 물을 고객님의 책상 앞까지 안전하게 배달해 드립니다.
           </p>
-          <Link href="#" className="font-label-sm uppercase tracking-widest text-on-background border-b border-on-background pb-1 hover:text-primary hover:border-primary transition-colors inline-block w-fit">
-            Discover Our Source
+          <Link href="#" className="font-label-sm tracking-widest text-on-background border-b border-on-background pb-1 hover:text-primary hover:border-primary transition-colors inline-block w-fit">
+            수원지 알아보기
           </Link>
         </div>
         
@@ -34,8 +34,8 @@ export default function Home() {
       {/* 2. Blog Grid Section (3-column layout) */}
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap border-t border-outline-variant/30">
         <div className="flex justify-between items-end mb-16">
-          <h2 className="font-headline-lg text-headline-lg tracking-tighter text-on-background">Latest Posts.</h2>
-          <span className="font-label-sm uppercase tracking-widest text-on-surface-variant hidden md:block">Editorial</span>
+          <h2 className="font-headline-lg text-headline-lg tracking-tighter text-on-background">최신 소식.</h2>
+          <span className="font-label-sm tracking-widest text-on-surface-variant hidden md:block">에디토리얼</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
@@ -51,18 +51,18 @@ export default function Home() {
               />
             </Link>
             <div className="flex flex-col">
-              <div className="flex items-center gap-3 mb-4 font-label-sm uppercase tracking-widest text-on-surface-variant">
-                <span>Oct 30, 2024</span>
+              <div className="flex items-center gap-3 mb-4 font-label-sm tracking-widest text-on-surface-variant">
+                <span>2024년 10월 30일</span>
                 <span className="w-4 h-[1px] bg-outline-variant"></span>
-                <span className="text-primary font-bold">Service</span>
+                <span className="text-primary font-bold">서비스안내</span>
               </div>
               <Link href="/posts/1">
                 <h3 className="font-article-title text-[1.75rem] leading-[1.3] tracking-tight text-on-background mb-4 group-hover:text-primary transition-colors">
                   해운대 사무실 생수 배달, 왜 부산생수일까요?
                 </h3>
               </Link>
-              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3">
-                Modern businesses require reliable hydration solutions. Busan Water provides seamless delivery services to Haeundae offices, ensuring your team stays refreshed and productive all day.
+              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3 break-keep">
+                사무실에서의 안정적인 수분 공급은 기업의 생산성과 직결됩니다. 부산생수는 해운대 전 지역 사무실에 끊김 없는 배달 서비스를 제공하여, 여러분의 팀이 하루 종일 상쾌한 컨디션을 유지할 수 있도록 돕습니다.
               </p>
             </div>
           </article>
@@ -78,16 +78,16 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center gap-3 mb-4 font-label-sm uppercase tracking-widest text-on-surface-variant">
-                <span>Oct 20, 2024</span>
+              <div className="flex items-center gap-3 mb-4 font-label-sm tracking-widest text-on-surface-variant">
+                <span>2024년 10월 20일</span>
                 <span className="w-4 h-[1px] bg-outline-variant"></span>
-                <span className="text-primary font-bold">Health</span>
+                <span className="text-primary font-bold">건강정보</span>
               </div>
               <h3 className="font-article-title text-[1.75rem] leading-[1.3] tracking-tight text-on-background mb-4 group-hover:text-primary transition-colors">
                 건강한 생활을 위한 올바른 물 섭취 가이드
               </h3>
-              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3">
-                Proper hydration is the foundation of good health. Learn how establishing a consistent water drinking routine can elevate your daily energy levels and overall wellbeing.
+              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3 break-keep">
+                올바른 수분 섭취는 건강의 기본입니다. 규칙적으로 물을 마시는 습관이 어떻게 일상의 에너지를 높이고 전반적인 웰빙을 향상시킬 수 있는지 알아보세요.
               </p>
             </div>
           </article>
@@ -103,16 +103,16 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center gap-3 mb-4 font-label-sm uppercase tracking-widest text-on-surface-variant">
-                <span>Oct 15, 2024</span>
+              <div className="flex items-center gap-3 mb-4 font-label-sm tracking-widest text-on-surface-variant">
+                <span>2024년 10월 15일</span>
                 <span className="w-4 h-[1px] bg-outline-variant"></span>
-                <span className="text-primary font-bold">About</span>
+                <span className="text-primary font-bold">회사소개</span>
               </div>
               <h3 className="font-article-title text-[1.75rem] leading-[1.3] tracking-tight text-on-background mb-4 group-hover:text-primary transition-colors">
                 부산의 깨끗한 수원지를 찾아서 떠나는 여정
               </h3>
-              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3">
-                Tracing the origins of our purity. We explore the pristine natural springs surrounding Busan that provide the crisp, clean taste our customers trust every day.
+              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3 break-keep">
+                부산생수의 맑고 깨끗함이 시작되는 곳. 고객님들이 매일 믿고 마시는 시원하고 깔끔한 물맛의 비밀을 찾아 부산 인근의 청정 수원지를 탐방합니다.
               </p>
             </div>
           </article>
