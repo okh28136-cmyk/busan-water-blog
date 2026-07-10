@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>부산생수 - 블로그</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Noto+Sans+KR:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f3f3f6",
+                        "on-tertiary-container": "#fbfdff",
+                        "on-surface-variant": "#414755",
+                        "on-primary-fixed": "#001a41",
+                        "on-background": "#1a1c1e",
+                        "on-error": "#ffffff",
+                        "background": "#f9f9fc",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "secondary": "#566068",
+                        "inverse-primary": "#adc6ff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "surface-bright": "#f9f9fc",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-container": "#5c666e",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#191c1e",
+                        "tertiary": "#595c5e",
+                        "on-secondary-fixed-variant": "#3e4850",
+                        "primary": "#0058bc",
+                        "outline-variant": "#c1c6d7",
+                        "secondary-fixed": "#dae4ee",
+                        "surface-container-high": "#e8e8ea",
+                        "inverse-surface": "#2f3133",
+                        "on-primary-fixed-variant": "#004493",
+                        "surface-container-highest": "#e2e2e5",
+                        "tertiary-container": "#727577",
+                        "on-primary-container": "#fefcff",
+                        "surface-tint": "#005bc1",
+                        "surface-variant": "#e2e2e5",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary-fixed": "#131d24",
+                        "secondary-container": "#dae4ee",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline": "#717786",
+                        "surface-dim": "#dadadc",
+                        "secondary-fixed-dim": "#bec8d1",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#0070eb",
+                        "surface": "#f9f9fc",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeef0",
+                        "on-surface": "#1a1c1e",
+                        "on-tertiary-fixed-variant": "#444749"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "article-title": ["Manrope", "Noto Sans KR", "sans-serif"],
+                        "label-sm": ["Manrope", "Noto Sans KR", "sans-serif"],
+                        "body-md": ["Noto Sans KR", "sans-serif"],
+                        "display-lg": ["Manrope", "Noto Sans KR", "sans-serif"],
+                        "headline-lg": ["Manrope", "Noto Sans KR", "sans-serif"],
+                        "headline-lg-mobile": ["Manrope", "Noto Sans KR", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "article-title": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased pt-[80px]">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant/30 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto left-0 right-0">
+<div class="flex items-center gap-8">
+<a class="font-display-lg text-display-lg tracking-tight text-primary" href="#">
+<img alt="Busan Water Logo" class="h-8 md:h-10 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLu6st7QP6zeAhl-OpHRM2mJwX_1lDCijVJHwja6ktOxB-zn-JoOYJ7ZBKTeFXA7WutJA-ewg8eJ8ybwl1s1GNQi5CsIuu53MOLcrIDbzjYyImeoGJUa-Mh4Q6rujSEKx-Su02cp1Ul360F8A-ISnu61lGKIO-UGgDvK0Cr9nW2OmrSEQjwcbDrWVM2CArODmE_vQG-SnopD3dciuS4YHUgiFyJf2J190vyJr_i3Ts-7O7Xgn6_Sq9Kgvt0"/>
+</a>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Our Water</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Delivery</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Health</a>
+<a class="text-primary font-bold border-b-2 border-primary hover:text-primary transition-colors duration-200" href="#">About Us</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-2">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none outline-none text-body-md text-on-surface-variant focus:ring-0 w-32" placeholder="Search..." type="text"/>
+</div>
+<a class="hidden md:inline-flex items-center justify-center border border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors" href="#">Login</a>
+<a class="inline-flex items-center justify-center bg-primary text-on-primary px-4 py-2 rounded-lg hover:bg-primary-container transition-colors shadow-sm hover:shadow-md" href="#">Subscribe</a>
+<button class="md:hidden text-on-surface-variant p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
+<!-- Page Header -->
+<div class="flex justify-between items-end border-b border-outline-variant/30 pb-4 mb-12">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">Report</h1>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Sort by: Recent</span>
+</div>
+<!-- Hero Article -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-20">
+<div class="md:col-span-5 flex flex-col justify-center">
+<h2 class="font-display-lg text-[32px] md:text-display-lg leading-tight mb-4 text-on-background">부산의 아침을 여는 깨끗한 물 한 잔, 부산생수</h2>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6 max-w-md">The BUSAN WATER project aims to improve the daily hydration routines of modern professionals, delivering crisp, pure water straight to your desk...</p>
+</div>
+<div class="md:col-span-7">
+<img alt="Hero Article Image" class="w-full h-auto aspect-video md:aspect-[4/3] object-cover rounded-DEFAULT bg-surface-container-high" data-alt="A brightly lit modern office overlooking the ocean in Busan. A sleek glass bottle of clear water sits on a light wooden desk, evoking purity and clarity. Minimalist editorial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXGu8sd52hdb1dbGbOsE7K7Z_CJMZoeY7UlrLHafv3a17GjGukvSQjKfM6hU-WYgcSpMWdbUeUlupCCLBt3_9wdpywTtOqolkWfL5ZuyWbmViFLzL_pKcn-LUO6lUQKgFbE5a6zYpJUFSpDcb0J71vx-G8sxW9g8fN9OSHTV_rA3WQlEc-GAITPci6j5sSoV2Ou0-7qmX9T3UcGI9EcNZNCz7MyhokSH8neYIMH7cKyjoDYpOFuuJPYiXS3I4piV5jyUkzubwo9zY"/>
+</div>
+</article>
+<!-- Article Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-gutter gap-y-16">
+<!-- Article 1 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="w-full aspect-square md:aspect-[4/5] bg-surface-container-high mb-4 overflow-hidden rounded-DEFAULT">
+<img alt="Article 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, minimalist office interior in Haeundae, Busan. Sunlight streaming through large windows onto a pristine water dispenser. High-end architectural photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ65mwIo9JLS7h4mSs9M0QV3B7iSme-pXbXNyMu_gpubS3QaEQ44W_44hWb9SEYVDRvZ6NvPkyv_aKuH_JmjwKtHtNU7h6fmWtyLh-cxn-VLakEKoeA3NcZuP2Eq6ON_fXg4mcDtsIUsJxDwyic3y8nZso72B_5QYNkMfwjvpvuYUGLickj9slpoZnYOKd5eKazJ_KZ8qdlY8bs-mu6MBQjGPWyCP7SBx1CTDfZJ65WqiqoaXXYS7Knn8Wwd8J96F5BkYPvquOlMQ"/>
+</div>
+<div class="flex items-center gap-2 mb-2 font-label-sm text-label-sm text-secondary">
+<span>Oct 30, 2024</span>
+<span>|</span>
+<span class="uppercase tracking-widest text-primary">Service</span>
+</div>
+<h3 class="font-article-title text-article-title text-on-background mb-3 group-hover:text-primary transition-colors">해운대 사무실 생수 배달, 왜 부산생수일까요?</h3>
+<p class="text-on-surface-variant line-clamp-3 text-sm">Modern businesses require reliable hydration solutions. Busan Water provides seamless delivery services to Haeundae offices, ensuring your team stays refreshed...</p>
+</article>
+<!-- Article 2 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="w-full aspect-square md:aspect-[4/5] bg-surface-container-high mb-4 overflow-hidden rounded-DEFAULT">
+<img alt="Article 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist composition of a clear glass of water next to a healthy green plant on a white marble surface. Bright, airy, editorial style photography focusing on wellness and hydration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACMz4vwDz4xe50Fms-B74Z5qezlOyIgy9kK4B7Zhq5eYAP_Y4L-IkWrqjxHFmSsJn_WwzHrxuk0VLgXiWw5GDBbxOwJi75DT8PmFp-zT4tVF1gukvNe5a4WuQ52Fi4dk1jlnPI-KaDCyKPaoFvn1hkzYUS4zVP_lSSwpBaCONf75l86stzHugXvAHfj0KWXqzHUMWbUstkDTsn0noOJ-dDoWOgzlW09bGLPUlhgwyYnuZVS310lb1N-K3ByS1kcChno2xM6xJL4ds"/>
+</div>
+<div class="flex items-center gap-2 mb-2 font-label-sm text-label-sm text-secondary">
+<span>Oct 20, 2024</span>
+<span>|</span>
+<span class="uppercase tracking-widest text-primary">Health</span>
+</div>
+<h3 class="font-article-title text-article-title text-on-background mb-3 group-hover:text-primary transition-colors">건강한 생활을 위한 물 섭취 가이드</h3>
+<p class="text-on-surface-variant line-clamp-3 text-sm">Proper hydration is the foundation of good health. Learn how establishing a consistent water drinking routine can elevate your daily energy levels and overall wellbeing...</p>
+</article>
+<!-- Article 3 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="w-full aspect-square md:aspect-[4/5] bg-surface-container-high mb-4 overflow-hidden rounded-DEFAULT">
+<img alt="Article 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A serene, mist-covered mountain landscape in the early morning, representing a pure natural water source. Soft, cool-toned color palette with expansive white space in the sky. Minimalist editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWpdBv_z29AGWXD1SCzvS2oOpLzHKKGQ8B-_zGmgPamwTPqsJxpnk29mFLu7C_ZxdyV97QgnHF7d7CDUBSlTRqg73vUPHQ99MYrG0zHCRqPzihhzkyye0RyUZ1r4X6UJ9jwrQ_EZA3t-xzf0LC9t4Pxeuvpb44sIpYR8Rkg4B04FfX0HKhOaF96fhYYqbEgL4KdeeuboppLAx0W89T94Lpct7VSC6rfmm217grhwpPRQphQ7IIFZYjswIWr8fL9YxOGFYkJi7i7oo"/>
+</div>
+<div class="flex items-center gap-2 mb-2 font-label-sm text-label-sm text-secondary">
+<span>Oct 15, 2024</span>
+<span>|</span>
+<span class="uppercase tracking-widest text-primary">About</span>
+</div>
+<h3 class="font-article-title text-article-title text-on-background mb-3 group-hover:text-primary transition-colors">부산의 깨끗한 수원지를 찾아서</h3>
+<p class="text-on-surface-variant line-clamp-3 text-sm">Tracing the origins of our purity. We explore the pristine natural springs surrounding Busan that provide the crisp, clean taste our customers trust every day...</p>
+</article>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-gap bg-surface-container-low border-t border-outline-variant/20">
+<div class="flex flex-col md:flex-row justify-between items-start px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto gap-gutter">
+<div class="flex flex-col gap-4">
+<span class="font-headline-lg text-headline-lg text-primary">부산생수</span>
+<p class="font-label-sm text-label-sm text-secondary max-w-xs">
+                    © 2024 Busan Pure Water. All rights reserved. Providing the purest hydration to the Busan community.
+                </p>
+</div>
+<div class="flex flex-wrap gap-6 md:gap-8 font-label-sm text-label-sm text-on-surface-variant">
+<a class="hover:text-primary underline transition-all" href="#">Terms of Service</a>
+<a class="hover:text-primary underline transition-all" href="#">Privacy Policy</a>
+<a class="hover:text-primary underline transition-all" href="#">Contact Us</a>
+<a class="hover:text-primary underline transition-all" href="#">Instagram</a>
+<a class="hover:text-primary underline transition-all" href="#">Facebook</a>
+</div>
+</div>
+</footer>
+</body></html>

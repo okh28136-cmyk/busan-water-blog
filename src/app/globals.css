@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/container-queries";
+
+@theme inline {
+  /* High-end Color Palette */
+  --color-background: #ffffff; /* 순백색 캔버스 */
+  --color-on-background: #0f172a; /* 딥 차콜/네이비 (거의 블랙) */
+  
+  --color-surface: #f8fafc; /* 매우 은은한 쿨톤 화이트 (카드/섹션 배경) */
+  --color-on-surface: #1e293b; 
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f8fafc;
+  --color-surface-container: #f1f5f9;
+  --color-surface-container-high: #e2e8f0;
+  
+  --color-on-surface-variant: #64748b; /* 부가 설명 텍스트 (명도 대비 확실하게) */
+  
+  --color-primary: #0047FF; /* 강렬하고 세련된 일렉트릭 오션 블루 (포인트 컬러) */
+  --color-on-primary: #ffffff;
+  --color-primary-container: #e0e7ff;
+  --color-on-primary-container: #001e7a;
+  
+  --color-secondary: #334155;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #f1f5f9;
+  
+  --color-outline: #cbd5e1;
+  --color-outline-variant: #e2e8f0; /* 테두리는 거의 보이지 않게 희미하게 처리 */
+  
+  --color-error: #ef4444;
+  --color-on-error: #ffffff;
+
+  /* 극단적인 여백 (Extreme Spacing for High-end feel) */
+  --spacing-margin-mobile: 24px;
+  --spacing-margin-desktop: 8vw; /* 데스크톱에서는 화면 너비에 비례한 거대한 여백 */
+  --spacing-container-max: 1600px; /* 더 와이드하게 */
+  --spacing-gutter: 40px;
+  --spacing-section-gap: 160px; /* 섹션 간 간격 극대화 */
+
+  /* 프리미엄 폰트 스케일링 */
+  --font-article-title: var(--font-manrope), var(--font-noto-sans-kr), sans-serif;
+  --font-label-sm: var(--font-manrope), var(--font-noto-sans-kr), sans-serif;
+  --font-body-md: var(--font-noto-sans-kr), sans-serif;
+  --font-display-lg: var(--font-manrope), var(--font-noto-sans-kr), sans-serif;
+  --font-headline-lg: var(--font-manrope), var(--font-noto-sans-kr), sans-serif;
+
+  /* 라벨은 극단적으로 작게, 자간은 넓게 (에디토리얼 감성) */
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 1.0;
+  --text-label-sm--letter-spacing: 0.15em;
+  --text-label-sm--font-weight: 700;
+
+  /* 본문은 가독성 위주로 */
+  --text-body-md: 17px;
+  --text-body-md--line-height: 1.7;
+  --text-body-md--font-weight: 400;
+  --text-body-md--letter-spacing: -0.01em;
+
+  /* 제목은 압도적으로 크고 두껍게, 자간은 좁게 (모던 감성) */
+  --text-display-lg: 5rem;
+  --text-display-lg--line-height: 1.05;
+  --text-display-lg--letter-spacing: -0.04em;
+  --text-display-lg--font-weight: 800;
+
+  --text-headline-lg: 3rem;
+  --text-headline-lg--line-height: 1.1;
+  --text-headline-lg--letter-spacing: -0.03em;
+  --text-headline-lg--font-weight: 700;
+
+  --text-article-title: 1.75rem;
+  --text-article-title--line-height: 1.3;
+  --text-article-title--letter-spacing: -0.02em;
+  --text-article-title--font-weight: 700;
+
+  /* AI 템플릿의 상징인 기본 둥근 모서리(0.125rem)를 없애고, 아예 날카롭게(0) 하거나 아주 미세하게(2px) 처리 */
+  --radius-DEFAULT: 0px; 
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 머티리얼 심볼 (얇고 미니멀하게) */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Tiptap 에디터 고도화 스타일 */
+.tiptap {
+  min-height: 400px;
+}
+.tiptap p {
+  margin-bottom: 1.5em;
+  color: var(--color-on-surface);
+}
+.tiptap h2 {
+  font-size: 2em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+  color: var(--color-on-background);
+}
+.tiptap h3 {
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: var(--color-on-background);
+}
+.tiptap ul {
+  list-style-type: none; /* 커스텀 불릿을 위해 기본 제거 */
+  padding-left: 0;
+  margin-bottom: 1.5em;
+}
+.tiptap ul li {
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+.tiptap ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+.tiptap img {
+  width: 100%;
+  height: auto;
+  margin: 2em 0;
+  /* 테두리 없이 플랫하게 */
+}
+.tiptap strong {
+  font-weight: 700;
+  color: var(--color-on-background);
+}
+.tiptap em {
+  font-style: italic;
+  color: var(--color-on-surface-variant);
+}
+
+/* 부드러운 이미지 트랜지션 (마이크로 인터랙션용) */
+.image-scale-hover {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group:hover .image-scale-hover {
+  transform: scale(1.05);
+}
