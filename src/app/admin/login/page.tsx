@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "@/lib/firebase/config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase/config";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -13,21 +13,12 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // 테스트용 하드코딩 로그인
-    if (email === "admin@busanwater.com" && password === "admin1234") {
-      router.push("/admin/dashboard");
-    } else {
-      alert("아이디 또는 비밀번호가 틀렸습니다.\n(테스트 계정: admin@busanwater.com / admin1234)");
-    }
-
-    /* 실제 연동 시 아래 주석 해제
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin/dashboard");
     } catch (error) {
       alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
     }
-    */
   };
 
   return (
