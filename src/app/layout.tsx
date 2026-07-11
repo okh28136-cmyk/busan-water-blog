@@ -16,7 +16,7 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "부산생수 - 블로그",
+  title: "부산생수배달 - 블로그",
   description: "부산지역 생수배달 전문. 네이버 검색 상위 노출에 최적화된 게시글.",
 };
 

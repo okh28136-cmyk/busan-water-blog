@@ -48,7 +48,7 @@ export default async function Home() {
             다시 쓰다.
           </h1>
           <p className="font-body-md text-on-surface-variant max-w-sm leading-relaxed mb-10 break-keep">
-            부산생수는 바쁜 현대인들의 매일 마시는 물 습관을 개선하기 위해, 가장 맑고 깨끗한 물을 고객님의 책상 앞까지 안전하게 배달해 드립니다.
+            부산생수배달은 바쁜 현대인들의 매일 마시는 물 습관을 개선하기 위해, 가장 맑고 깨끗한 물을 고객님의 책상 앞까지 안전하게 배달해 드립니다.
           </p>
           <Link href="#" className="font-label-sm tracking-widest text-on-background border-b border-on-background pb-1 hover:text-primary hover:border-primary transition-colors inline-block w-fit">
             수원지 알아보기
