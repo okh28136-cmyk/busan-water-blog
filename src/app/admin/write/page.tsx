@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import imageCompression from "browser-image-compression";
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { db } from "@/lib/firebase/config";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const MenuBar = ({ editor }: { editor: any }) => {
   if (!editor) {
@@ -55,8 +58,10 @@ const MenuBar = ({ editor }: { editor: any }) => {
 };
 
 export default function WritePost() {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Service");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   // 썸네일 및 이미지 상태
   const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -92,8 +97,8 @@ export default function WritePost() {
       
       try {
         const options = {
-          maxSizeMB: 0.5,
-          maxWidthOrHeight: 1200,
+          maxSizeMB: 0.1, // 파이어베이스 문서 크기 제한(1MB)을 위해 강하게 압축
+          maxWidthOrHeight: 800,
           useWebWorker: true,
           fileType: 'image/webp' as any
         };
@@ -133,15 +138,39 @@ export default function WritePost() {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const htmlContent = editor?.getHTML() || "";
-    alert("파이어베이스 연동 후 다음 데이터가 저장됩니다:\n\n" + 
-          "제목: " + title + "\n" +
-          "태그 수: " + tags.length + "\n" +
-          "썸네일: " + (thumbnail ? "등록됨(WebP)" : "없음") + "\n" +
-          "본문 길이: " + htmlContent.length + "자\n" +
-          "SEO 제목: " + seoTitle);
+    
+    if (!title.trim() || !htmlContent.trim()) {
+      alert("제목과 본문을 입력해주세요.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      await addDoc(collection(db, "posts"), {
+        title,
+        category,
+        tags,
+        content: htmlContent,
+        thumbnail: thumbnailPreview || "", // Base64 압축 이미지 직접 저장
+        seoTitle: seoTitle || title,
+        seoDescription,
+        createdAt: serverTimestamp(),
+      });
+      
+      alert("게시글이 성공적으로 발행되었습니다!");
+      router.push("/admin/dashboard");
+    } catch (error) {
+      console.error("게시글 저장 실패:", error);
+      alert("게시글 저장 중 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -300,9 +329,14 @@ export default function WritePost() {
           </button>
           <button 
             type="submit" 
-            className="flex-[2] bg-primary text-on-primary py-4 rounded-xl font-bold text-lg hover:bg-primary-container transition-colors shadow-md"
+            disabled={isSubmitting}
+            className={`flex-[2] py-4 rounded-xl font-bold text-lg transition-colors shadow-md ${
+              isSubmitting 
+                ? 'bg-outline text-on-surface opacity-50 cursor-not-allowed' 
+                : 'bg-primary text-on-primary hover:bg-primary-container'
+            }`}
           >
-            블로그에 발행하기
+            {isSubmitting ? '발행 중...' : '블로그에 발행하기'}
           </button>
         </div>
       </form>

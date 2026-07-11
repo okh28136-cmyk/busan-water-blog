@@ -1,7 +1,41 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { db } from '@/lib/firebase/config';
+import { collection, getDocs, orderBy, query, limit } from 'firebase/firestore';
 
-export default function Home() {
+export const revalidate = 10; // 10초마다 캐시 갱신 (빠른 업데이트 확인용)
+
+async function getPosts() {
+  const posts: any[] = [];
+  try {
+    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(6));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const date = data.createdAt ? new Date(data.createdAt.toMillis()).toISOString().split('T')[0] : "최근";
+      
+      // HTML에서 순수 텍스트만 추출하여 요약본 만들기
+      const plainText = data.content.replace(/<[^>]+>/g, '');
+      const excerpt = plainText.length > 100 ? plainText.substring(0, 100) + '...' : plainText;
+
+      posts.push({
+        id: doc.id,
+        title: data.title,
+        category: data.category,
+        thumbnail: data.thumbnail,
+        excerpt: excerpt,
+        date: date
+      });
+    });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+  return posts;
+}
+
+export default async function Home() {
+  const posts = await getPosts();
+
   return (
     <main className="w-full bg-background overflow-hidden">
       
@@ -40,82 +74,44 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
           
-          {/* Article 1 */}
-          <article className="flex flex-col group cursor-pointer">
-            <Link href="/posts/1" className="w-full aspect-[4/3] relative overflow-hidden bg-surface mb-6">
-              <Image 
-                alt="Article 1" 
-                fill
-                className="object-cover image-scale-hover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ65mwIo9JLS7h4mSs9M0QV3B7iSme-pXbXNyMu_gpubS3QaEQ44W_44hWb9SEYVDRvZ6NvPkyv_aKuH_JmjwKtHtNU7h6fmWtyLh-cxn-VLakEKoeA3NcZuP2Eq6ON_fXg4mcDtsIUsJxDwyic3y8nZso72B_5QYNkMfwjvpvuYUGLickj9slpoZnYOKd5eKazJ_KZ8qdlY8bs-mu6MBQjGPWyCP7SBx1CTDfZJ65WqiqoaXXYS7Knn8Wwd8J96F5BkYPvquOlMQ" 
-              />
-            </Link>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-3 mb-4 font-label-sm tracking-widest text-on-surface-variant">
-                <span>2024년 10월 30일</span>
-                <span className="w-4 h-[1px] bg-outline-variant"></span>
-                <span className="text-primary font-bold">서비스안내</span>
-              </div>
-              <Link href="/posts/1">
-                <h3 className="font-article-title text-[1.75rem] leading-[1.3] tracking-tight text-on-background mb-4 group-hover:text-primary transition-colors">
-                  해운대 사무실 생수 배달, 왜 부산생수일까요?
-                </h3>
-              </Link>
-              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3 break-keep">
-                사무실에서의 안정적인 수분 공급은 기업의 생산성과 직결됩니다. 부산생수는 해운대 전 지역 사무실에 끊김 없는 배달 서비스를 제공하여, 여러분의 팀이 하루 종일 상쾌한 컨디션을 유지할 수 있도록 돕습니다.
-              </p>
+          {posts.length > 0 ? (
+            posts.map((post) => (
+              <article key={post.id} className="flex flex-col group cursor-pointer">
+                <Link href={`/posts/${post.id}`} className="w-full aspect-[4/3] relative overflow-hidden bg-surface mb-6 border border-outline-variant/20 rounded-lg">
+                  {post.thumbnail ? (
+                    <img 
+                      alt={post.title} 
+                      className="object-cover w-full h-full image-scale-hover" 
+                      src={post.thumbnail} 
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-surface-container text-secondary text-sm">
+                      이미지 없음
+                    </div>
+                  )}
+                </Link>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-3 mb-4 font-label-sm tracking-widest text-on-surface-variant">
+                    <span>{post.date}</span>
+                    <span className="w-4 h-[1px] bg-outline-variant"></span>
+                    <span className="text-primary font-bold">{post.category}</span>
+                  </div>
+                  <Link href={`/posts/${post.id}`}>
+                    <h3 className="font-article-title text-[1.75rem] leading-[1.3] tracking-tight text-on-background mb-4 group-hover:text-primary transition-colors">
+                      {post.title}
+                    </h3>
+                  </Link>
+                  <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3 break-keep">
+                    {post.excerpt}
+                  </p>
+                </div>
+              </article>
+            ))
+          ) : (
+            <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 text-on-surface-variant">
+              등록된 게시글이 없습니다. 관리자 페이지에서 첫 글을 작성해 보세요.
             </div>
-          </article>
-
-          {/* Article 2 */}
-          <article className="flex flex-col group cursor-pointer">
-            <div className="w-full aspect-[4/3] relative overflow-hidden bg-surface mb-6">
-              <Image 
-                alt="Article 2" 
-                fill
-                className="object-cover image-scale-hover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuACMz4vwDz4xe50Fms-B74Z5qezlOyIgy9kK4B7Zhq5eYAP_Y4L-IkWrqjxHFmSsJn_WwzHrxuk0VLgXiWw5GDBbxOwJi75DT8PmFp-zT4tVF1gukvNe5a4WuQ52Fi4dk1jlnPI-KaDCyKPaoFvn1hkzYUS4zVP_lSSwpBaCONf75l86stzHugXvAHfj0KWXqzHUMWbUstkDTsn0noOJ-dDoWOgzlW09bGLPUlhgwyYnuZVS310lb1N-K3ByS1kcChno2xM6xJL4ds" 
-              />
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-3 mb-4 font-label-sm tracking-widest text-on-surface-variant">
-                <span>2024년 10월 20일</span>
-                <span className="w-4 h-[1px] bg-outline-variant"></span>
-                <span className="text-primary font-bold">건강정보</span>
-              </div>
-              <h3 className="font-article-title text-[1.75rem] leading-[1.3] tracking-tight text-on-background mb-4 group-hover:text-primary transition-colors">
-                건강한 생활을 위한 올바른 물 섭취 가이드
-              </h3>
-              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3 break-keep">
-                올바른 수분 섭취는 건강의 기본입니다. 규칙적으로 물을 마시는 습관이 어떻게 일상의 에너지를 높이고 전반적인 웰빙을 향상시킬 수 있는지 알아보세요.
-              </p>
-            </div>
-          </article>
-
-          {/* Article 3 */}
-          <article className="flex flex-col group cursor-pointer">
-            <div className="w-full aspect-[4/3] relative overflow-hidden bg-surface mb-6">
-              <Image 
-                alt="Article 3" 
-                fill
-                className="object-cover image-scale-hover" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWpdBv_z29AGWXD1SCzvS2oOpLzHKKGQ8B-_zGmgPamwTPqsJxpnk29mFLu7C_ZxdyV97QgnHF7d7CDUBSlTRqg73vUPHQ99MYrG0zHCRqPzihhzkyye0RyUZ1r4X6UJ9jwrQ_EZA3t-xzf0LC9t4Pxeuvpb44sIpYR8Rkg4B04FfX0HKhOaF96fhYYqbEgL4KdeeuboppLAx0W89T94Lpct7VSC6rfmm217grhwpPRQphQ7IIFZYjswIWr8fL9YxOGFYkJi7i7oo" 
-              />
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-3 mb-4 font-label-sm tracking-widest text-on-surface-variant">
-                <span>2024년 10월 15일</span>
-                <span className="w-4 h-[1px] bg-outline-variant"></span>
-                <span className="text-primary font-bold">회사소개</span>
-              </div>
-              <h3 className="font-article-title text-[1.75rem] leading-[1.3] tracking-tight text-on-background mb-4 group-hover:text-primary transition-colors">
-                부산의 깨끗한 수원지를 찾아서 떠나는 여정
-              </h3>
-              <p className="text-on-surface-variant font-body-md leading-relaxed line-clamp-3 break-keep">
-                부산생수의 맑고 깨끗함이 시작되는 곳. 고객님들이 매일 믿고 마시는 시원하고 깔끔한 물맛의 비밀을 찾아 부산 인근의 청정 수원지를 탐방합니다.
-              </p>
-            </div>
-          </article>
+          )}
 
         </div>
       </section>

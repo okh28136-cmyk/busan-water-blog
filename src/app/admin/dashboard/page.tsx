@@ -1,22 +1,59 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase/config";
+import { collection, getDocs, deleteDoc, doc, orderBy, query } from "firebase/firestore";
 
-// 임시 데이터
-const DUMMY_POSTS = [
-  { id: "1", title: "해운대 사무실 생수 배달, 왜 부산생수일까요?", category: "Service", date: "2024-10-30" },
-  { id: "2", title: "건강한 생활을 위한 물 섭취 가이드", category: "Health", date: "2024-10-20" },
-  { id: "3", title: "부산의 깨끗한 수원지를 찾아서", category: "About", date: "2024-10-15" },
-];
+interface Post {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+}
 
 export default function AdminDashboard() {
-  const [posts, setPosts] = useState(DUMMY_POSTS);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleDelete = (id: string) => {
-    if (confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
-      setPosts(posts.filter(post => post.id !== id));
-      // 파이어베이스 연동 시 실제 DB 삭제 로직 추가
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    setIsLoading(true);
+    try {
+      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      const fetchedPosts: Post[] = [];
+      querySnapshot.forEach((document) => {
+        const data = document.data();
+        const date = data.createdAt ? new Date(data.createdAt.toMillis()).toISOString().split('T')[0] : "방금 전";
+        fetchedPosts.push({
+          id: document.id,
+          title: data.title,
+          category: data.category,
+          date: date,
+        });
+      });
+      setPosts(fetchedPosts);
+    } catch (error) {
+      console.error("게시글 불러오기 실패:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (confirm("정말로 이 게시글을 삭제하시겠습니까? 데이터베이스에서 영구 삭제됩니다.")) {
+      try {
+        await deleteDoc(doc(db, "posts", id));
+        setPosts(posts.filter(post => post.id !== id));
+        alert("게시글이 삭제되었습니다.");
+      } catch (error) {
+        console.error("삭제 실패:", error);
+        alert("삭제 중 오류가 발생했습니다.");
+      }
     }
   };
 
@@ -46,23 +83,30 @@ export default function AdminDashboard() {
             </tr>
           </thead>
           <tbody>
-            {posts.map((post) => (
-              <tr key={post.id} className="border-b border-outline-variant/20 hover:bg-surface-container/50 transition-colors">
-                <td className="p-4 font-body-md text-on-background">{post.title}</td>
-                <td className="p-4 text-on-surface-variant text-sm">{post.category}</td>
-                <td className="p-4 text-on-surface-variant text-sm">{post.date}</td>
-                <td className="p-4 flex justify-center gap-2">
-                  <Link href={`/admin/write?id=${post.id}`} className="text-primary hover:underline text-sm px-2">수정</Link>
-                  <button onClick={() => handleDelete(post.id)} className="text-error hover:underline text-sm px-2">삭제</button>
-                </td>
-              </tr>
-            ))}
-            {posts.length === 0 && (
+            {isLoading ? (
               <tr>
                 <td colSpan={4} className="p-8 text-center text-on-surface-variant">
-                  작성된 게시글이 없습니다.
+                  게시글을 불러오는 중입니다...
                 </td>
               </tr>
+            ) : posts.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="p-8 text-center text-on-surface-variant">
+                  작성된 게시글이 없습니다. 우측 상단의 '새 글 쓰기'를 눌러 첫 글을 작성해보세요.
+                </td>
+              </tr>
+            ) : (
+              posts.map((post) => (
+                <tr key={post.id} className="border-b border-outline-variant/20 hover:bg-surface-container/50 transition-colors">
+                  <td className="p-4 font-body-md text-on-background">{post.title}</td>
+                  <td className="p-4 text-on-surface-variant text-sm">{post.category}</td>
+                  <td className="p-4 text-on-surface-variant text-sm">{post.date}</td>
+                  <td className="p-4 flex justify-center gap-2">
+                    <button onClick={() => alert('기능 준비 중입니다. 먼저 새 글을 지우고 새로 써보세요!')} className="text-primary hover:underline text-sm px-2">수정</button>
+                    <button onClick={() => handleDelete(post.id)} className="text-error hover:underline text-sm px-2">삭제</button>
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>

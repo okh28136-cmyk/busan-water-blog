@@ -1,35 +1,48 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { db } from '@/lib/firebase/config';
+import { doc, getDoc } from 'firebase/firestore';
 
-// 임시 데이터 (파이어베이스 연동 전)
-const getDummyPost = (id: string) => {
-  return {
-    id,
-    title: "해운대 사무실 생수 배달, 왜 부산생수일까요?",
-    category: "Service",
-    date: "2024-10-30",
-    seoTitle: "부산 해운대 사무실 생수 배달 추천 - 부산생수",
-    seoDescription: "부산 전 지역 맑고 깨끗한 생수를 사무실로 당일 배달해 드립니다. 해운대, 서면 등 빠른 배송 가능.",
-    tags: ["부산생수", "해운대생수배달", "사무실생수"],
-    thumbnail: "https://images.unsplash.com/photo-1548689816-c399f954f3dd?q=80&w=1200&auto=format&fit=crop",
-    content: `
-      <h2>깨끗한 물이 업무 효율을 높입니다</h2>
-      <p>사무실에서 마시는 물 한 잔이 직장인들의 하루 컨디션을 좌우합니다. 부산생수는 엄격한 수질 검사를 통과한 맑고 깨끗한 암반수만을 제공합니다.</p>
-      <ul>
-        <li>당일 무료 배송 시스템</li>
-        <li>정기적인 냉온수기 소독 및 관리</li>
-        <li>합리적인 가격의 월 정기구독 서비스</li>
-      </ul>
-      <h3>왜 부산생수인가요?</h3>
-      <p>단순히 물을 배달하는 것을 넘어, 고객님의 공간에 건강한 라이프스타일을 전달하고자 노력하고 있습니다. 지금 바로 상담받아보세요.</p>
-    `
-  };
-};
+export const revalidate = 10;
+
+async function getPost(id: string) {
+  try {
+    const docRef = doc(db, "posts", id);
+    const docSnap = await getDoc(docRef);
+    
+    if (!docSnap.exists()) {
+      return null;
+    }
+    
+    const data = docSnap.data();
+    const date = data.createdAt ? new Date(data.createdAt.toMillis()).toISOString().split('T')[0] : "최근";
+    
+    return {
+      id: docSnap.id,
+      title: data.title,
+      category: data.category,
+      date,
+      seoTitle: data.seoTitle || data.title,
+      seoDescription: data.seoDescription || "",
+      tags: data.tags || [],
+      thumbnail: data.thumbnail || null,
+      content: data.content || ""
+    };
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    return null;
+  }
+}
 
 // 네이버 및 구글 검색엔진 최적화(SEO)를 위한 메타태그 동적 생성
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const post = getDummyPost(id);
+  const post = await getPost(id);
+
+  if (!post) {
+    return { title: 'Post Not Found' };
+  }
 
   return {
     title: post.seoTitle || post.title,
@@ -38,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     openGraph: {
       title: post.seoTitle || post.title,
       description: post.seoDescription,
-      images: [post.thumbnail],
+      images: post.thumbnail ? [post.thumbnail] : [],
       type: 'article',
       publishedTime: post.date,
     }
@@ -47,7 +60,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function PostDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const post = getDummyPost(id);
+  const post = await getPost(id);
+
+  if (!post) {
+    notFound();
+  }
 
   return (
     <article className="min-h-screen bg-background pb-24">
@@ -105,7 +122,7 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
         {post.tags && post.tags.length > 0 && (
           <div className="mt-20 pt-8 border-t border-outline-variant/30 flex flex-wrap gap-2 items-center">
             <span className="material-symbols-outlined text-secondary mr-2">sell</span>
-            {post.tags.map(tag => (
+            {post.tags.map((tag: string) => (
               <span key={tag} className="px-4 py-1.5 bg-surface-container-low text-on-surface-variant text-sm rounded-full border border-outline-variant/20 hover:bg-surface-container-high hover:text-primary cursor-pointer transition-colors shadow-sm font-medium">
                 #{tag}
               </span>
