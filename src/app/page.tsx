@@ -36,9 +36,28 @@ async function getPosts() {
 export default async function Home() {
   const posts = await getPosts();
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: '부산생수배달',
+    image: 'https://busanwaterman.co.kr/default-image.jpg',
+    description: '부산 전 지역 사무실 생수 배달 전문업체 부산생수입니다. 맑고 깨끗한 생수를 가장 빠르고 안전하게 배송해 드립니다.',
+    url: 'https://busanwaterman.co.kr',
+    telephone: '+82-10-0000-0000',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Busan',
+      addressRegion: 'Busan',
+      addressCountry: 'KR',
+    },
+  };
+
   return (
     <main className="w-full bg-background overflow-hidden">
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* 1. Massive Asymmetric Hero Section */}
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-[150px] pb-section-gap flex flex-col md:flex-row items-end gap-12">
         <div className="w-full md:w-5/12 flex flex-col justify-end">

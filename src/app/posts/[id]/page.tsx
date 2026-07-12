@@ -66,8 +66,35 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
     notFound();
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.seoTitle || post.title,
+    image: post.thumbnail ? [post.thumbnail] : [],
+    datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.date).toISOString(),
+    author: [{
+      '@type': 'Organization',
+      name: '부산생수배달',
+      url: 'https://busanwaterman.co.kr',
+    }],
+    publisher: {
+      '@type': 'Organization',
+      name: '부산생수배달',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://busanwaterman.co.kr/default-image.jpg',
+      },
+    },
+    description: post.seoDescription || post.title,
+  };
+
   return (
     <article className="min-h-screen bg-background pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* 썸네일 헤더 영역 (에디토리얼 풀-블리드) */}
       {post.thumbnail && (
         <div className="w-full h-[60vh] md:h-[70vh] relative">
