@@ -13,7 +13,7 @@ export default function NavBar() {
           관리자 로그인
         </Link>
         <Link className="inline-flex items-center justify-center bg-primary text-on-primary px-6 py-3 font-label-sm tracking-widest hover:bg-on-background transition-colors duration-300" href="#">
-          정기구독 신청
+          생수배달 신청
         </Link>
         <button className="md:hidden text-on-background p-2">
           <span className="material-symbols-outlined">menu</span>
