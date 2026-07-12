@@ -134,6 +134,20 @@ export default async function Home() {
 
         </div>
       </section>
+      {/* 3. 인기 태그 영역 (SEO 최적화) */}
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 mb-12">
+        <div className="flex flex-wrap gap-3">
+          {[
+            '부산생수배달', '부산생수', '부산사무실생수배달', '사무실생수배달', 
+            '부산공장생수배달', '공장생수배달', '사상공단생수배달', 
+            '녹산산단생수배달', '신평장림산단생수배달', '강서산단생수배달'
+          ].map((tag) => (
+            <span key={tag} className="px-4 py-2 bg-surface-container-low text-on-surface-variant font-body-md text-sm rounded-sm hover:bg-surface-container-high transition-colors">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
