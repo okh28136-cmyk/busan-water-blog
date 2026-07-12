@@ -12,22 +12,6 @@ export default function Footer() {
             부산 지역에 가장 깨끗한 물을 제공합니다.
           </p>
         </div>
-        <div className="flex flex-col md:flex-row gap-12 md:gap-24 font-label-sm tracking-widest text-on-primary/80">
-          <div className="flex flex-col gap-4">
-            <span className="text-on-primary font-bold mb-2">이용 안내</span>
-            <Link className="hover:text-primary transition-all" href="#">이용약관</Link>
-            <Link className="hover:text-primary transition-all" href="#">개인정보처리방침</Link>
-          </div>
-          <div className="flex flex-col gap-4">
-            <span className="text-on-primary font-bold mb-2">소셜 미디어</span>
-            <Link className="hover:text-primary transition-all" href="#">인스타그램</Link>
-            <Link className="hover:text-primary transition-all" href="#">페이스북</Link>
-          </div>
-          <div className="flex flex-col gap-4">
-            <span className="text-on-primary font-bold mb-2">고객 지원</span>
-            <Link className="hover:text-primary transition-all" href="#">문의하기</Link>
-          </div>
-        </div>
       </div>
     </footer>
   );
